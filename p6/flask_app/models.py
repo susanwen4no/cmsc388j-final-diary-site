@@ -31,9 +31,6 @@ class Project(db.Document):
     project_id = db.StringField(required=True)
     description = db.StringField(required=True, min_length=5, max_length=500)
 
-    def get_id(self):
-        return self.owner.get_id()
-
 
 class Entry(db.Document):
     project_id = db.StringField(required=True)

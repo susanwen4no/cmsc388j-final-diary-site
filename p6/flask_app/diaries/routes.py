@@ -10,15 +10,30 @@ from . import diaries
 
 @diaries.route("/")
 def index():
-    #TODO
-    return render_template("index.html")
+    users = User.objects(status=True)
+    projects = Project.objects()
+    return render_template("index.html", users=users, projects=projects)
 
+import io
+import base64
+
+def get_b64_img(username):
+    user = User.objects(username=username).first()
+    bytes_im = io.BytesIO(user.profile_pic.read())
+    image = base64.b64encode(bytes_im.getvalue()).decode()
+    return image
 
 @diaries.route("/user/<username>")
 def user_detail(username):
     #TODO
-    return "nope"
-    #render_template("user_detail.html")
+    user = User.objects(username=username).first()
+
+    if user is None:
+        return render_template("404.html")
+
+    projects = Project.objects(owner=user)
+
+    return render_template("user_detail.html", user=user, projects=projects, image=get_b64_img(user.username))
 
 
 @diaries.route("/create", methods=["GET", "POST"])
@@ -38,7 +53,6 @@ def create():
         )
         
         proj.save()
-        flash("Project created!")
         return redirect(url_for("diaries.project", project_id=pid))
 
     return render_template("create_project.html", form=form)
@@ -49,6 +63,9 @@ def project(project_id):
     
     comment_form = DiaryCommentForm()
     project = Project.objects(project_id=project_id).first()
+
+    if project is None:
+        return render_template("404.html")
 
     if comment_form.submit.data and comment_form.validate_on_submit() and current_user.is_authenticated:
         comment = Comment(

@@ -12,14 +12,14 @@
   <div class="col">
     <div class="card text-center">
       <div class="card-header">
-        {{ project.title }}
+        <b>{{ project.title }}</b>
       </div>
       <div class="card-body">
         <b>Created by:</b> 
         <a href="{{ url_for('diaries.user_detail', username=username) }}">
           <strong>@{{ username }}</strong>
         </a>
-
+        <br>
         <b>Description: </b> {{ project.description }}
       </div>
     </div>
@@ -40,7 +40,7 @@
           </span>
           <p>
             <b>{{entry.title}}</b>
-            {{ entry.content }}
+            <p>{{ entry.content }}</p>
           </p>
         </div>
       </li>
@@ -113,7 +113,7 @@
 </div>
 
 
-{% if current_user.is_authenticated %}
+{% if current_user.is_authenticated and current_user.username != username  %}
 {# Comment submission form #}
 <div class="row">
   <div class="col">

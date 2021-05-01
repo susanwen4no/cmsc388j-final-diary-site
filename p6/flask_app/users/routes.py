@@ -13,6 +13,9 @@ from . import users
 import io
 import base64
 
+@users.route("/about")
+def about():
+    return render_template('about.html')
 
 @users.route("/register", methods=["GET", "POST"])
 def register():
