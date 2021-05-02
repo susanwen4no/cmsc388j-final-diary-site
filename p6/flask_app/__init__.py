@@ -45,9 +45,7 @@ def create_app(test_config=None):
     Talisman(app, content_security_policy=csp)
 
     app.config.from_pyfile("config.py", silent=False)
-    if test_config is not None:
-        app.config.update(test_config)
-
+    
     mail.init_app(app)
     db.init_app(app)
     login_manager.init_app(app)
