@@ -1,0 +1,84 @@
+{% extends "header.html" %}
+{% block content %}
+<div class="card text-center">
+  <div class="card-header">
+    <b>{{ current_user.username }}'s Account</b>
+  </div>
+</div>
+<div class="row">
+    <div class="col">
+        {# Profile picture #}
+        <img class="propic" src="data:image/png;base64,{{image}}" alt="image">
+    </div>
+    <div class="col">       
+        <p>{{ current_user.description }}</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        {# Username Update Form #}
+        <form method="POST" action="">
+            {{ username_form.csrf_token }}
+            <div class="form-group">
+              {{ username_form.username.label }}
+              {{ username_form.username(class="form-control") }}
+      
+              {% if username_form.username.errors %}
+              <div class="alert alert-warning" role="alert">
+                {% for error in username_form.username.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+              {% endif %}
+      
+            </div>
+            {{ username_form.submit() }}
+          </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        {# Description Update Form #}
+        <form method="POST" action="">
+            {{ description_form.csrf_token }}
+            <div class="form-group">
+              {{ description_form.description.label }}
+              {{ description_form.description(class="form-control") }}
+      
+              {% if description_form.description.errors %}
+              <div class="alert alert-warning" role="alert">
+                {% for error in description_form.description.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+              {% endif %}
+      
+            </div>
+            {{ description_form.submit_desc() }}
+          </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        {# Profile Picture Update Form #}
+        <form action="" method="post" enctype="multipart/form-data">
+            {{ picture_form.csrf_token }}
+            <div class="form-group">
+              {{ picture_form.picture.label }}
+              {{ picture_form.picture(class="form-control") }}
+      
+              {% if picture_form.picture.errors %}
+              <div class="alert alert-warning" role="alert">
+                {% for error in picture_form.picture.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+              {% endif %}
+      
+            </div>
+            {{ picture_form.submit_pp() }}
+        </form>
+    </div>
+</div>
+{% endblock %}>

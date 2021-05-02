@@ -1,0 +1,37 @@
+{% extends "header.html" %}
+{% block content %}
+<div class="card text-center">
+  <div class="card-header">
+    <b> {{ user.username }} </b>
+  </div>
+</div>
+<div class="row">
+    <div class="col">
+        {# Profile picture #}
+        <img class="propic" src="data:image/png;base64,{{image}}" alt="image">
+    </div>
+    <div class="col">       
+        <p>{{ user.description }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <h1> Projects <small class="float-right">{{ projects.count() }} projects</small></h1>
+        <ul class="media-list">
+            {% for project in projects %}
+            <li class="media review-item">
+                <div class="media-body">
+                    <strong>Title: <a href="{{ url_for('diaries.project', project_id=project.project_id) }}">
+                            {{ project.title }}
+                        </a>
+                    </strong>
+                    <p>
+                        {{ project.description }}
+                    </p>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
