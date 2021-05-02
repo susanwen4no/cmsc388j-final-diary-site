@@ -29,7 +29,6 @@ mail = Mail()
 from flask_app.users.routes import users
 from flask_app.diaries.routes import diaries
 
-
 def page_not_found(e):
     return render_template("404.html"), 404
 
@@ -39,21 +38,11 @@ def create_app(test_config=None):
 
     csp = {
         'default-src': '\'self\'',
-        'img-src': '*',
+        'img-src': '* data:',
         'style-src': '*'
         }
 
     Talisman(app, content_security_policy=csp)
-
-    # flask mail configs
-    app.config.update(
-        MAIL_SERVER = 'smtp.gmail.com',
-        MAIL_PORT = 465,
-        MAIL_USE_SSL = True,
-        MAIL_DEFAULT_SENDER = 'projectdiary388j@gmail.com',
-        MAIL_USERNAME = 'projectdiary388j@gmail.com',
-        MAIL_PASSWORD = 'tasbcbuxdwulngpp'
-    )
 
     app.config.from_pyfile("config.py", silent=False)
     if test_config is not None:

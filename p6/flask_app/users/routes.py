@@ -17,7 +17,6 @@ import base64
 # Flask_Mail
 from flask_mail import Message
 
-
 @users.route("/about")
 def about():
     return render_template('about.html')
@@ -31,10 +30,11 @@ def register():
     if form.validate_on_submit():
         hashed = bcrypt.generate_password_hash(form.password.data).decode("utf-8")
         code = "confirmation123"
+
         user = User(
             username=form.username.data, email=form.email.data, password=hashed, status=False,
             verify_code=code
-            )
+        )
         user.save()
 
         # Send confirmation code email!!!
