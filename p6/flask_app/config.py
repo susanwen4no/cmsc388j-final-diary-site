@@ -8,5 +8,5 @@ MAIL_SERVER = 'smtp.gmail.com'
 MAIL_PORT = 465
 MAIL_USE_SSL = True
 MAIL_DEFAULT_SENDER = 'projectdiary388j@gmail.com'
-MAIL_USERNAME = 'projectdiary388j@gmail.com'
+MAIL_USERNAME = 'Project Diary'
 MAIL_PASSWORD = os.getenv("MAIL_PASSWORD") #'tasbcbuxdwulngpp' #cmscconfirm123
