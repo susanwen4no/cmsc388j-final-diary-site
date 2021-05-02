@@ -2,7 +2,7 @@ from flask import Blueprint, redirect, url_for, render_template, flash, request
 from flask_login import current_user, login_required, login_user, logout_user
 from ..utils import current_time
 
-from .. import bcrypt
+from .. import bcrypt, mail
 from werkzeug.utils import secure_filename
 
 from ..forms import RegistrationForm, LoginForm, UpdateUsernameForm, ConfirmationForm, UpdateDescriptionForm, UpdateProfilePicForm
@@ -10,8 +10,13 @@ from ..models import User
 
 from . import users
 
+# images
 import io
 import base64
+
+# Flask_Mail
+from flask_mail import Message
+
 
 @users.route("/about")
 def about():
@@ -31,6 +36,14 @@ def register():
             verify_code=code
             )
         user.save()
+
+        # Send confirmation code email!!!
+        msg = Message(
+            subject="Project Diary Confirmation Code",
+            body="Hello! Your confirmation code is: "+code,
+            recipients=[user.email]
+        )
+        mail.send(msg)
 
         return redirect(url_for("users.verify"))
 

@@ -13,6 +13,7 @@ from wtforms.validators import (
     ValidationError,
 )
 
+import re
 
 from .models import User
 
@@ -22,8 +23,8 @@ class RegistrationForm(FlaskForm):
     username = StringField(
         "Username", validators=[InputRequired(), Length(min=1, max=40)]
     )
-    email = StringField("Email", validators=[InputRequired(), Email()])
-    password = PasswordField("Password", validators=[InputRequired()])
+    email = StringField("Email", validators=[InputRequired(), Email(),])
+    password = PasswordField("Password", validators=[InputRequired(), Length(min=8)])
     confirm_password = PasswordField(
         "Confirm Password", validators=[InputRequired(), EqualTo("password")]
     )
@@ -38,6 +39,15 @@ class RegistrationForm(FlaskForm):
         user = User.objects(email=email.data).first()
         if user is not None:
             raise ValidationError("Email is taken")
+
+    def validate_password(self, password):
+        regex = ("^(?=.*\\d)" +
+             "(?=.*[-+_!@#$%^&*., ?]).+$")
+
+        p = re.compile(regex)
+
+        if (not re.search(p, password.data)):
+            raise ValidationError("Please use at least 1 number and 1 special character")
 
 
 class ConfirmationForm(FlaskForm):

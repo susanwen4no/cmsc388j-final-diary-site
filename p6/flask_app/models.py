@@ -14,7 +14,7 @@ def load_user(user_id):
 class User(db.Document, UserMixin):
     username = db.StringField(required=True, unique=True)
     email = db.EmailField(required=True, unique=True)
-    password = db.StringField(required=True)
+    password = db.StringField(required=True, min_length=8)
     profile_pic = db.FileField()
     description = db.StringField()
     verify_code = db.StringField(required=True)
