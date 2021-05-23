@@ -8,7 +8,7 @@ Project Diaries is a site where people can sign up to create project diaries and
 
 **Description:**
 
-This is a Flask application created for CMSC388J, using the later project code as a base to help build it. The CSS and Bootstrap used are currently directly from CMSC388J; code can be found at the [class repository here](https://github.com/CMSC388J/cmsc388j-spring21).
+This is a Flask application created for CMSC388J, using the later project code as a base to help build it. The CSS and Bootstrap used are currently directly from CMSC388J: [class repository here](https://github.com/CMSC388J/cmsc388j-spring21).
 
 **Functionality:**
 
