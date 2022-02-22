@@ -81,7 +81,7 @@ sos==4.0
 ssh-import-id==5.10
 systemd-python==234
 toml==0.10.1
-Twisted==18.9.0
+Twisted==22.1.0
 ubuntu-advantage-tools==20.3
 ubuntu-drivers-common==0.0.0
 ufw==0.36
